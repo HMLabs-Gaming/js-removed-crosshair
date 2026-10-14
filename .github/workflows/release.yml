@@ -1,0 +1,21 @@
+# Caller example: copy to the consuming resource-pack repository at .github/workflows/release.yml.
+name: Resource Pack Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    uses: HMLabs-Gaming/release-workflows/.github/workflows/release-artifacts.yml@main
+    with:
+      project-slug: js-removed-crosshair
+      modrinth-project-id: lbBrGYD8
+      use-java: false
+      build-command: |
+        bash .release-workflows/scripts/build-resourcepack.sh
+      artifacts-json: '[{"path":"js-removed-crosshair-{version}.zip"}]'
+    secrets: inherit
